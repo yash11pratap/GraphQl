@@ -58,7 +58,7 @@ export const resizeUserImages = async (req : Request, res : Response, next : Nex
 
     next();
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
@@ -78,7 +78,7 @@ export const getAllUsers = async (req : Request, res : Response, next : NextFunc
     const users = await User.find();
     res.status(200).json({ status: "success", data: { users } });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
@@ -89,7 +89,7 @@ export const getUser = async (req : Request, res : Response, next : NextFunction
     const user = await User.findById(req.params.id);
     res.status(200).json({ status: "success", data: { user } });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
@@ -143,7 +143,7 @@ export const updateUser = async (req : Request, res : Response) => {
     });
     res.status(201).json({ status: "success", data: { user } });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
@@ -156,7 +156,7 @@ export const deleteUser = async (req : Request, res : Response) => {
       .status(204)
       .json({ status: "success", msg: "User successfully deleted" });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };

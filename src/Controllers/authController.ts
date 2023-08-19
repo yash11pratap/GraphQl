@@ -9,9 +9,8 @@ import User from "../models/User";
 import Email from "../utils/email";
 
 const signToken = (id:any) => {
-  const token = jwt.sign({ id }, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
+  console.log(id)
+  const token = jwt.sign({ id }, process.env.JWT_SECRET!);
   return token;
 };
 
@@ -41,7 +40,7 @@ export const protect = async (req : Request, res : Response, next : NextFunction
         msg: "Please log in first"
       });
     }
-
+    
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if user still exist
@@ -65,7 +64,9 @@ export const protect = async (req : Request, res : Response, next : NextFunction
     res.locals.user = currentUser;
     next();
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
+
+    console.log(err);
     return res.status(400).json({
       status: "fail",
       msg: err.message
@@ -79,7 +80,8 @@ export const getUserFromToken = async (req : Request, res : Response) => {
     const user = await User.findById(res.locals.user).select("-password");
     res.status(200).json({ status: "success", data: { user } });
   } catch (err) {
-    console.error(err.message);
+    
+    console.error(err);
     res.status(500).json({ status: "fail", msg: "Server Error" });
   }
 };
@@ -111,6 +113,7 @@ export const signup = async (req : Request, res : Response, next : NextFunction)
       }
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -145,6 +148,8 @@ export const login = async (req : Request, res : Response, next : NextFunction) 
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -227,7 +232,7 @@ export const resetPassword = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message

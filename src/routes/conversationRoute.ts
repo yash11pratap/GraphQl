@@ -14,6 +14,8 @@ router.post("/", async (req : Request, res : Response) => {
     const savedConversation = await newConversation.save();
     res.status(200).json(savedConversation);
   } catch (err) {
+    console.log(err);
+
     res.status(500).json(err);
   }
 });
@@ -27,6 +29,8 @@ router.get("/:userId", async (req : Request, res : Response) => {
     });
     res.status(200).json(conversation);
   } catch (err) {
+    console.log(err);
+
     res.status(500).json(err);
   }
 });
@@ -40,6 +44,8 @@ router.get("/find/:firstUserId/:secondUserId", async (req : Request, res : Respo
     });
     res.status(200).json(conversation);
   } catch (err) {
+    console.log(err);
+
     res.status(500).json(err);
   }
 });

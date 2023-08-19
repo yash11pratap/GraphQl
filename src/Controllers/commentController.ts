@@ -36,6 +36,7 @@ export const createComment = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+
     console.log(err);
     res.status(400).json({
       status: "fail",
@@ -64,6 +65,8 @@ export const deleteComment = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -87,6 +90,8 @@ export const getCommentsOfTweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -109,6 +114,8 @@ export const getCommentsOfUser = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message

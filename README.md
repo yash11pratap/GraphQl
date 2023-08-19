@@ -1,1 +1,1 @@
-# MERN Stack
+# MERN Stack Twitter Clone uploaded on AWS EC2 with backend in typescript Express and Frontend in React 

@@ -29,20 +29,32 @@ import  nodemailer from "nodemailer";
       subject,
       text
     };
-
+try {
     //3) Create a transport and send email
     await this.newTransport().sendMail(mailOptions);
+}catch(err){
+  console.log(err)
+}
   }
 
   async sendWelcome() {
+    try {
     await this.send("Welcome To Twitter!", "Welcome to the Twitter Family");
+    }catch(err){
+      console.log(err)
+    }
   }
 
   async sendPasswordReset(url: string) {
+try {
     await this.send(
       "Reset Your Password",
       `Your Password Reset Token (valid for only 10 minutes): ${url}`
-    );
+    );  }catch(err){
+      console.log(err)
+    }
+
+
   }
 };
 

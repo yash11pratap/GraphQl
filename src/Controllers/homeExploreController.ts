@@ -75,6 +75,8 @@ export const getHomeContent = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -84,7 +86,10 @@ export const getHomeContent = async (req : Request, res : Response) => {
 
 export const getExploreContent = async (req : Request, res : Response) => {
   try {
+    console.log("HEY")
     const suggestions = await getFollowSuggestion(res.locals.user.id);
+    console.log("HEY2")
+
     res.status(200).json({
       status: "success",
       data: {
@@ -92,6 +97,8 @@ export const getExploreContent = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -99,10 +106,11 @@ export const getExploreContent = async (req : Request, res : Response) => {
   }
 };
 
-export const getFollowSuggestion = async id => {
+export const getFollowSuggestion = async (id) => {
   const followings = await Connection.find({ following: id }).select(
     "followed"
   );
+  console.log(getFollowSuggestion+id);
   let followingsArr = Array.from(followings, (f) => (f as any).followed);
   followingsArr.push(id);
 

@@ -33,6 +33,8 @@ export const follow = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -62,6 +64,8 @@ export const unfollow = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -83,6 +87,8 @@ export const getFollowers = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -106,6 +112,8 @@ export const getFollowing = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message

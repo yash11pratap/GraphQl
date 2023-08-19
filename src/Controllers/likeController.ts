@@ -35,7 +35,7 @@ export const likeTweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -71,7 +71,7 @@ export const unLikeTweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -94,6 +94,8 @@ export const getLikedTweetsOfUser = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     return res.status(400).json({
       status: "fail",
       msg: err.message
@@ -115,6 +117,8 @@ export const getLikedUsersOfTweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message

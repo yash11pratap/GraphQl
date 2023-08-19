@@ -3,7 +3,7 @@ import Like from "../models/Like";
 import Comment from "../models/Comment";
 import Retweet  from "../models/retweet";
 import { cloudinaryLink } from "../utils/upload";
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response, Request, text } from "express";
 
 // Get All Tweets
 export const getAllTweets = async (req : Request, res : Response, next : NextFunction) => {
@@ -16,7 +16,7 @@ export const getAllTweets = async (req : Request, res : Response, next : NextFun
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -35,7 +35,7 @@ export const getTweet = async (req : Request, res : Response, next : NextFunctio
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -48,13 +48,19 @@ export const createTweet = async (req : Request, res : Response, next : NextFunc
   try {
     const user = res.locals.user;
     // Get Cloudinary Link for Media
-    const mediaLink = await cloudinaryLink(req.file.path);
+    let mediaLink
+try {
+     mediaLink = await cloudinaryLink(req?.file?.path);
+}catch(err){
+  console.log(err)
+}
     let tweet = await Tweet.create({
       userId: user._id,
       text: req.body.text,
-      media: mediaLink.url
+      media: mediaLink?.url
     });
-    tweet = await (tweet.populate("userId", "name username") as any).execPopulate();
+    console.log(tweet+"dsdf")
+    tweet = await tweet.populate("userId", "name username") ;
 
     res.status(201).json({
       status: "success",
@@ -63,7 +69,7 @@ export const createTweet = async (req : Request, res : Response, next : NextFunc
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -86,7 +92,7 @@ export const getTweetsOfUser = async (req : Request, res : Response, next : Next
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -111,7 +117,7 @@ export const updateMyTweet = async (req : Request, res : Response, next : NextFu
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
@@ -128,7 +134,7 @@ export const deleteMyTweet = async (req : Request, res : Response, next : NextFu
       .status(204)
       .json({ status: "success", msg: "Tweet successfully deleted" });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ status: "error", msg: err.message });
   }
 };

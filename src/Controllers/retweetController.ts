@@ -13,7 +13,7 @@ export const getAllReweets = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -32,7 +32,7 @@ export const getRetweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -85,7 +85,7 @@ export const createRetweet = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -114,7 +114,7 @@ export const getRetweetsOfUser = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -136,6 +136,8 @@ export const getRetweetedUsersOfTweet = async (req : Request, res : Response) =>
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -170,7 +172,7 @@ export const deleteRetweet = async (req : Request, res : Response) => {
       .status(204)
       .json({ status: "success", msg: "Retweet successfully deleted" });
   } catch (err) {
-    console.log(err.message);
-    res.status(400).json({ status: "error", msg: err.message });
+    console.log(err);
+    res.status(400).json({ status: "error", msg: err });
   }
 };

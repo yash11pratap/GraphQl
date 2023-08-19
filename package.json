@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec ts-node src/app.ts"
+    "dev": "nodemon --exec ts-node src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4",
     "nodemon": "^3.0.1",
     "sharp": "^0.32.5",
     "socket.io": "^4.7.2",

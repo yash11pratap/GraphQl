@@ -26,6 +26,8 @@ export const addBookmark = async (req : Request, res : Response, next : NextFunc
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -50,6 +52,8 @@ export const removeBookmark = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -68,6 +72,8 @@ export const getAllBookmarks = async (req : Request, res : Response) => {
       }
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message
@@ -85,6 +91,8 @@ export const clearAllBookmarks = async (req : Request, res : Response) => {
       msg: "Successfully cleared all bookmarks"
     });
   } catch (err) {
+    console.log(err);
+
     res.status(400).json({
       status: "fail",
       msg: err.message

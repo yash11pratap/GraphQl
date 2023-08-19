@@ -6,15 +6,16 @@ import tweetRoute from "./routes/tweetRoute";
 import connectionRoute from "./routes/connectionRoute";
 import messageRoute from "./routes/messageRoute";
 import conversationRoute from "./routes/conversationRoute";
-
+import cors from "cors"
 const app = express();
 
 if (process.env.NODE_ENV == "development") {
   app.use(require("morgan")("dev"));
 }
 
-app.use(express.json());
 
+app.use(cors())
+app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/tweets", tweetRoute);

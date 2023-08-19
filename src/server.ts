@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-dotenv.config({ path: "./config.env" });
+dotenv.config();
 import mongoose, { ConnectOptions } from "mongoose";
 import { cloudinaryConfig } from "./utils/upload";
 
@@ -17,8 +17,6 @@ const io = require("socket.io")(server, {
 mongoose
   .connect(process.env.DB_URL as string, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
     useUnifiedTopology: true
   }as ConnectOptions)
   .then(() => console.log("Connected to DB"))

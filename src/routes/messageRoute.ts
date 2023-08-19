@@ -11,6 +11,8 @@ router.post("/", async (req : Request, res : Response) => {
     const savedMessage = await newMessage.save();
     res.status(200).json(savedMessage);
   } catch (err) {
+    console.log(err);
+
     res.status(500).json(err);
   }
 });
@@ -24,6 +26,8 @@ router.get("/:conversationId", async (req : Request, res : Response) => {
     });
     res.status(200).json(messages);
   } catch (err) {
+    console.log(err);
+
     res.status(500).json(err);
   }
 });
