@@ -1,6 +1,6 @@
 import Connection  from "../models/Connection";
-import Tweet  from "../models/Tweet";
-import Retweet  from "../models/Retweet";
+import Tweet  from "../models/tweet";
+import Retweet  from "../models/retweet";
 import User from "../models/User";
 import Comment from "../models/Comment";
 import { NextFunction, Response, Request } from "express";

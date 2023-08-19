@@ -1,5 +1,5 @@
 import  Like  from "../models/Like";
-import Tweet  from "../models/Tweet";
+import Tweet  from "../models/tweet";
 import { NextFunction, Response, Request } from "express";
 
 // Like Tweet

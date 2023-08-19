@@ -1,7 +1,7 @@
-import Tweet from "../models/Tweet";
+import Tweet from "../models/tweet";
 import Like from "../models/Like";
 import Comment from "../models/Comment";
-import Retweet  from "../models/Retweet";
+import Retweet  from "../models/retweet";
 import { cloudinaryLink } from "../utils/upload";
 import { NextFunction, Response, Request } from "express";
 

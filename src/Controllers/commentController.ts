@@ -1,4 +1,4 @@
-import Tweet  from "../models/Tweet";
+import Tweet  from "../models/tweet";
 import Comment  from "../models/Comment";
 import { NextFunction, Response, Request } from "express";
 

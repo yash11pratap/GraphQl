@@ -1,5 +1,5 @@
-import Retweet from "../models/Retweet";
-import Tweet from "../models/Tweet";
+import Retweet from "../models/retweet";
+import Tweet from "../models/tweet";
 import { NextFunction, Response, Request } from "express";
 
 // Get All Retweets
