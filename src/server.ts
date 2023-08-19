@@ -13,7 +13,6 @@ const io = require("socket.io")(server, {
   }
 });
 
-const DB = process.env.DB.replace("<PASSWORD>", process.env.DB_PASSWORD);
 
 mongoose
   .connect(process.env.DB_URL as string, {

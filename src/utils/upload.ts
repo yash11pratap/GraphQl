@@ -1,5 +1,5 @@
-const multer = from "multer");
-const cloudinary = from "cloudinary").v2;
+import multer from "multer";
+import cloudinary  from "cloudinary";
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
@@ -28,7 +28,7 @@ export const upload = multer({
 });
 
 export const cloudinaryConfig = () => {
-  cloudinary.config({
+  cloudinary.v2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
@@ -36,5 +36,5 @@ export const cloudinaryConfig = () => {
 };
 
 export const cloudinaryLink = async path => {
-  return await cloudinary.uploader.upload(path);
+  return await cloudinary.v2.uploader.upload(path);
 };
