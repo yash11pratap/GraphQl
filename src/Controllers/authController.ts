@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import validator from "validator";
 import crypto from "crypto";
 import {
   signUpUserValidation,
