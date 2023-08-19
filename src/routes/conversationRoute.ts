@@ -44,4 +44,4 @@ router.get("/find/:firstUserId/:secondUserId", async (req : Request, res : Respo
   }
 });
 
-module.exports = router;
+export default  router;

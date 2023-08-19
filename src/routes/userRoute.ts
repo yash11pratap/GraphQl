@@ -64,4 +64,4 @@ router
   .get(getUser)
   .patch(updateUser);
 
-module.exports = router;
+export default router;
