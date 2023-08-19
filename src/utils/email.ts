@@ -1,7 +1,10 @@
 import  nodemailer from "nodemailer";
 
  class Email {
-  constructor(private to : any,private firstName : any,private from : any ,private user : any) {
+  private to : string;
+  private firstName : string;
+  private from : string
+  constructor( user : any) {
     this.to = user.email;
     this.firstName = user.name.split(" ")[0];
     this.from = `${process.env.EMAIL_FROM}`;

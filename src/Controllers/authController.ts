@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import validator from "validator";
 import crypto from "crypto";
-import promisify from "util";
 import {
   signUpUserValidation,
   loginUserValidation
@@ -44,10 +43,11 @@ exports.protect = async (req : Request, res : Response, next : NextFunction) => 
       });
     }
 
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if user still exist
-    const currentUser = await User.findById(decoded.id);
+    
+    const currentUser = await User.findById((decoded as any).id) as any;
     if (!currentUser) {
       return res.status(401).json({
         status: "fail",
@@ -56,7 +56,7 @@ exports.protect = async (req : Request, res : Response, next : NextFunction) => 
     }
 
     // Check is user changed password after the token was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
+    if (currentUser.changedPasswordAfter((decoded as any).iat)) {
       return res.status(401).json({
         status: "fail",
         msg: "The password was changed. Please log in again"
@@ -128,7 +128,8 @@ exports.login = async (req : Request, res : Response, next : NextFunction) => {
 
     const { email, password } = req.body;
     // Confirm email and password
-    const user = await User.findOne({ email }).select("+password");
+    let user :any;
+    user = await User.findOne({ email }).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
       return res.status(401).json({
@@ -154,8 +155,9 @@ exports.login = async (req : Request, res : Response, next : NextFunction) => {
 
 // Forget Password
 exports.forgotPassword = async (req : Request, res : Response) => {
+  let user : any;
   try {
-    const user = await User.findOne({ email: req.body.email });
+     user = await User.findOne({ email: req.body.email }) ;
     if (!user) {
       return res.status(404).json({
         stataus: "fail",
