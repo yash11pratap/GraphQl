@@ -121,8 +121,8 @@ export const updateMe = async (req : Request, res : Response, next : NextFunctio
 };
 
 // Delete User(by himself)
-export const deleteMe = async (req, res) => {
-  await User.findByIdAndDelete(req.user.id);
+export const deleteMe = async (req : Request, res : Response) => {
+  await User.findByIdAndDelete(res.locals.user.id);
   res.status(204).json({
     status: "success",
     data: null
@@ -130,7 +130,7 @@ export const deleteMe = async (req, res) => {
 };
 
 // Update User
-export const updateUser = async (req, res) => {
+export const updateUser = async (req : Request, res : Response) => {
   try {
     if (req.body.password) {
       res.status(400).json({
@@ -149,7 +149,7 @@ export const updateUser = async (req, res) => {
 };
 
 // Delete User
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req : Request, res : Response) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res

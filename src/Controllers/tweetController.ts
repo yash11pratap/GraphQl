@@ -6,7 +6,7 @@ import { cloudinaryLink } from "../utils/upload";
 import { NextFunction, Response, Request } from "express";
 
 // Get All Tweets
-exports.getAllTweets = async (req : Request, res : Response, next : NextFunction) => {
+export const getAllTweets = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const tweets = await Tweet.find();
     res.status(200).json({
@@ -25,7 +25,7 @@ exports.getAllTweets = async (req : Request, res : Response, next : NextFunction
 };
 
 // Get Tweet
-exports.getTweet = async (req : Request, res : Response, next : NextFunction) => {
+export const getTweet = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const tweet = await Tweet.findById(req.params.id);
     res.status(200).json({
@@ -44,7 +44,7 @@ exports.getTweet = async (req : Request, res : Response, next : NextFunction) =>
 };
 
 // Create Tweet
-exports.createTweet = async (req : Request, res : Response, next : NextFunction) => {
+export const createTweet = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const user = res.locals.user;
     // Get Cloudinary Link for Media
@@ -72,7 +72,7 @@ exports.createTweet = async (req : Request, res : Response, next : NextFunction)
 };
 
 // Get Tweets Of User
-exports.getTweetsOfUser = async (req : Request, res : Response, next : NextFunction) => {
+export const getTweetsOfUser = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const userId = req.params.id;
     const tweets = await Tweet.find({ userId })
@@ -95,7 +95,7 @@ exports.getTweetsOfUser = async (req : Request, res : Response, next : NextFunct
 };
 
 // Update My Tweet
-exports.updateMyTweet = async (req : Request, res : Response, next : NextFunction) => {
+export const updateMyTweet = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const tweet = await Tweet.findOneAndUpdate(
       { _id: req.params.id, userId: res.locals.user.id },
@@ -117,7 +117,7 @@ exports.updateMyTweet = async (req : Request, res : Response, next : NextFunctio
 };
 
 // Delete My Tweet
-exports.deleteMyTweet = async (req : Request, res : Response, next : NextFunction) => {
+export const deleteMyTweet = async (req : Request, res : Response, next : NextFunction) => {
   try {
     const tweetId = req.params.id;
     await Tweet.findOneAndDelete({ _id: tweetId, userId: res.locals.user.id });

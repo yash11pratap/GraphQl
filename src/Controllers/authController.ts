@@ -22,7 +22,7 @@ const validationError = (res:Response, error : any) => {
   });
 };
 
-exports.protect = async (req : Request, res : Response, next : NextFunction) => {
+export const protect = async (req : Request, res : Response, next : NextFunction) => {
   try {
     let token;
     if (
@@ -74,7 +74,7 @@ exports.protect = async (req : Request, res : Response, next : NextFunction) => 
 };
 
 // Get User from token
-exports.getUserFromToken = async (req : Request, res : Response) => {
+export const getUserFromToken = async (req : Request, res : Response) => {
   try {
     const user = await User.findById(res.locals.user).select("-password");
     res.status(200).json({ status: "success", data: { user } });
@@ -85,7 +85,7 @@ exports.getUserFromToken = async (req : Request, res : Response) => {
 };
 
 // Signup
-exports.signup = async (req : Request, res : Response, next : NextFunction) => {
+export const signup = async (req : Request, res : Response, next : NextFunction) => {
   try {
     // Validation
     const { error } = signUpUserValidation(req.body);
@@ -119,7 +119,7 @@ exports.signup = async (req : Request, res : Response, next : NextFunction) => {
 };
 
 // Login
-exports.login = async (req : Request, res : Response, next : NextFunction) => {
+export const login = async (req : Request, res : Response, next : NextFunction) => {
   try {
     // Validation
     const { error } = loginUserValidation(req.body);
@@ -153,7 +153,7 @@ exports.login = async (req : Request, res : Response, next : NextFunction) => {
 };
 
 // Forget Password
-exports.forgotPassword = async (req : Request, res : Response) => {
+export const forgotPassword = async (req : Request, res : Response) => {
   let user : any;
   try {
      user = await User.findOne({ email: req.body.email }) ;
@@ -192,7 +192,7 @@ exports.forgotPassword = async (req : Request, res : Response) => {
 };
 
 // Reset Password
-exports.resetPassword = async (req : Request, res : Response) => {
+export const resetPassword = async (req : Request, res : Response) => {
   try {
     //Get user from the reset token
     const hashedToken = crypto
