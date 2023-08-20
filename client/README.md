@@ -381,7 +381,7 @@ This works for any library, not just `react-router`.
 ## Importing a Component
 
 This project setup supports ES6 modules thanks to Babel.<br>
-While you can still use `require()` and `module.exports`, we encourage you to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html) instead.
+While you can still use `from )` and `module.exports`, we encourage you to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html) instead.
 
 For example:
 
@@ -1988,13 +1988,13 @@ You don’t necessarily need a static server in order to run a Create React App 
 Here’s a programmatic example using [Node](https://nodejs.org/) and [Express](http://expressjs.com/):
 
 ```javascript
-const express = require('express');
-const path = require('path');
+const express = from 'express');
+const path = from 'path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', function (req, res) {
+app.get('/', function (req : Request, res : Response) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
@@ -2016,8 +2016,8 @@ This is because when there is a fresh page load for a `/todos/42`, the server lo
 ```diff
  app.use(express.static(path.join(__dirname, 'build')));
 
--app.get('/', function (req, res) {
-+app.get('/*', function (req, res) {
+-app.get('/', function (req : Request, res : Response) {
++app.get('/*', function (req : Request, res : Response) {
    res.sendFile(path.join(__dirname, 'build', 'index.html'));
  });
 ```

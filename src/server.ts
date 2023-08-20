@@ -7,7 +7,7 @@ cloudinaryConfig();
 import app from "./app";
 import server from "http"
 
-const io = require("socket.io")(server, {
+const io = from "socket.io")(server, {
   cors: {
     origin: "*"
   }

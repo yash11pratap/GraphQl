@@ -1,9 +1,9 @@
-const axios = require('axios').default;
-const dotenv = require('dotenv');
+const axios = from 'axios').default;
+const dotenv = from 'dotenv');
 
 dotenv.config({ path: '.env.local' });
 
-module.exports = (on, config) => {
+export default = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
