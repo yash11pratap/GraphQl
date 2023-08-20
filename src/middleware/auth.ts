@@ -2,8 +2,9 @@
 import passport from 'passport';
 import { ErrorHandler } from '../utils/error'
 import { roleRights } from '../config/roles'
+import {Request, Response, NextFunction} from 'express'
 
-const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {
+const verifyCallback = (req : Request,res : Response, resolve, reject, requiredRights) => async (err, user, info) => {
   if (err || info || !user) {
     return reject(new ErrorHandler(401, 'You are not authenticated'));
   }
@@ -20,9 +21,9 @@ const verifyCallback = (req, resolve, reject, requiredRights) => async (err, use
   resolve();
 };
 
-const auth = (...requiredRights) => async (req, res, next) => {
+const auth = (...requiredRights) => async (req : Request, res : Response, next : NextFunction) => {
   return new Promise((resolve, reject) => {
-    passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject, requiredRights))(
+    passport.authenticate('jwt', { session: false }, verifyCallback(req,res, resolve, reject, requiredRights))(
       req,
       res,
       next

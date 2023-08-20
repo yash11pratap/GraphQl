@@ -11,7 +11,6 @@ export default {
     uri: process.env.MONGO_URI as string,
     options: {
       useNewUrlParser: true,
-      useFindAndModify: false,
     } as ConnectOptions,
   },
   jwt: {
