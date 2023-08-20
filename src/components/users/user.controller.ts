@@ -1,17 +1,16 @@
-import { pick } = from 'lodash');
-import { ErrorHandler } = from '../../utils/error');
-import { User } = from './');
-import Profile = from '../profiles/profile.model');
-import Tweet = from '../tweets/tweet.model');
-
+import { pick } from 'lodash'
+import { ErrorHandler } from '../../utils/error'
+import  User  from '../users/user.model'
+import Profile from '../profiles/profile.model'
+import Tweet from '../tweets/tweet.model'
+import { Request,Response,NextFunction } from 'express'
 export const getUsers = async (req : Request, res : Response) => {
   const filters = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
-  const users = await User.paginate(filters, options);
+  const users = await (User as any).paginate(filters, options);
 
-  return res.json(users);
-
+  res.json(users);
 };
 
 export const getUserById = async (req : Request, res : Response) => {
@@ -29,11 +28,11 @@ export const getUserById = async (req : Request, res : Response) => {
 export const createUser = async (req : Request, res : Response) => {
   const userBody = pick(req.body, ['name', 'username', 'email', 'password', 'role', 'avatar']);
 
-  if (await User.isEmailTaken(userBody.email)) {
+  if (await (User as any).isEmailTaken(userBody.email)) {
     throw new ErrorHandler(400, 'Email already taken');
   }
 
-  if (await User.isUsernameTaken(userBody.username)) {
+  if (await (User as any).isUsernameTaken(userBody.username)) {
     throw new ErrorHandler(400, 'Username already taken');
   }
 
@@ -50,11 +49,11 @@ export const updateUser = async (req : Request, res : Response) => {
   const newValues = pick(req.body, ['name', 'username', 'email', 'password', 'role', 'avatar']);
   const { userId } = req.params;
 
-  if (newValues.email && (await User.isEmailTaken(newValues.email, userId))) {
+  if (newValues.email && (await (User as any).isEmailTaken(newValues.email, userId))) {
     throw new ErrorHandler(400, 'Email already taken');
   }
 
-  if (newValues.username && (await User.isUsernameTaken(newValues.username, userId))) {
+  if (newValues.username && (await (User as any).isUsernameTaken(newValues.username, userId))) {
     throw new ErrorHandler(400, 'Username already taken');
   }
 
@@ -74,7 +73,7 @@ export const updateUser = async (req : Request, res : Response) => {
 export const deleteUser = async (req : Request, res : Response) => {
   const { userId } = req.params;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(userId) as any;
 
   if (!user) {
     throw new ErrorHandler(404, 'User not found');

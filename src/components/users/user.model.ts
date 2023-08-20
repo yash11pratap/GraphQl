@@ -1,11 +1,11 @@
-const mongoose = from 'mongoose');
-const bcrypt = from 'bcryptjs');
-const validator = from 'validator');
-const { ErrorHandler } = from '../../utils/error');
-const { generateAccessToken, hashPassword } = from '../../utils/auth');
-const { paginatePlugin } = from '../../utils/mongo');
-const { roles } = from '../../config/roles');
-const { formatUsername } = from '../../utils/helpers');
+import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+import validator from 'validator'
+import { ErrorHandler }  from '../../utils/error'
+import { generateAccessToken, hashPassword }  from '../../utils/auth'
+import { paginatePlugin }  from '../../utils/mongo'
+import { roles }  from '../../config/roles'
+import { formatUsername } from '../../utils/helpers'
 
 const Schema = mongoose.Schema;
 
@@ -133,4 +133,4 @@ UserSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
 
 const User = mongoose.model('User', UserSchema);
 
-export default = User;
+export default  User;

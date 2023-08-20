@@ -1,41 +1,40 @@
-import path from "path";
-import express from "express";
-import authRoute from "./routes/authRoute";
-import userRoute from "./routes/userRoute";
-import tweetRoute from "./routes/tweetRoute";
-import connectionRoute from "./routes/connectionRoute";
-import messageRoute from "./routes/messageRoute";
-import conversationRoute from "./routes/conversationRoute";
-import cors from "cors"
+import express from 'express'
+import 'express-async-errors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import compression from 'compression';
+import cors from 'cors'
+import passport from 'passport'
+import config from './config/keys'
+import  jwtStrategy  from './config/passport'
+import { getRoutes } from './routes'
+import { handleNotFound, handleError } from  './utils/error'
+
 const app = express();
 
-if (process.env.NODE_ENV == "development") {
-  app.use(from "morgan")("dev"));
-}
-
-
-app.use(cors())
 app.use(express.json());
-app.use("/api/auth", authRoute);
-app.use("/api/users", userRoute);
-app.use("/api/tweets", tweetRoute);
-app.use("/api/connect", connectionRoute);
-app.use("/api/messages", messageRoute);
-app.use("/api/conversations", conversationRoute);
+app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(compression());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-
-  app.get("*", (req : Request, res : Response) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+if (config.env !== 'test') {
+  app.use(morgan('dev'));
 }
 
-app.all("*", (req : Request, res : Response, next) => {
-  res.status(404).json({
-    status: "fail",
-    message: `Could not find ${req.url}`
-  });
-});
+app.use(cors());
+app.options('*', cors());
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
+
+// Handle routes
+app.use('/api', getRoutes());
+
+// 404 error handler
+app.use(handleNotFound);
+
+// Error handler
+app.use(handleError);
 
 export default app;

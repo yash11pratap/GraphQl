@@ -1,14 +1,14 @@
-const Joi = from 'joi');
-const { objectId } = from '../../utils/customValidation');
+import Joi from 'joi'
+import { objectId } from '../../utils/customValidation'
 
-const getFeedsTweets = {
+export const getFeedsTweets = {
   query: Joi.object().keys({
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
   }),
 };
 
-const getTweets = {
+export const getTweets = {
   query: Joi.object().keys({
     author: Joi.string().custom(objectId),
     likes: Joi.string().custom(objectId),
@@ -20,35 +20,27 @@ const getTweets = {
   }),
 };
 
-const getTweet = {
+export const getTweet = {
   params: Joi.object().keys({
     tweetId: Joi.string().required().custom(objectId),
   }),
 };
 
-const createTweet = {
+export const createTweet = {
   body: Joi.object().keys({
     text: Joi.string().required().min(1).max(280),
     replyTo: Joi.string().custom(objectId),
   }),
 };
 
-const updateTweet = {
+export const updateTweet = {
   params: getTweet.params,
   body: Joi.object().keys({
     text: Joi.string().required().min(1).max(280),
   }),
 };
 
-const deleteTweet = {
+export const deleteTweet = {
   params: getTweet.params,
 };
 
-export default = {
-  getFeedsTweets,
-  getTweets,
-  getTweet,
-  createTweet,
-  updateTweet,
-  deleteTweet,
-};

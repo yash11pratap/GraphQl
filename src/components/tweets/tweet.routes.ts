@@ -1,30 +1,31 @@
-const router = from 'express').Router();
-const auth = from '../../middleware/auth');
-const validate = from '../../middleware/validate');
-const tweetController = from './tweet.controller');
-const tweetValidation = from './tweet.validation');
+import express from 'express'
+const router=express.Router();
+import auth  from '../../middleware/auth'
+import validate  from '../../middleware/validate'
+import {updateTweet as updateTweetController, deleteTweet as deleteTweetController, unlikeTweet as unlikeTweetController,getTweet as getTweetController, getTweets as getTweetsController,createTweet as createTweetController ,getFeedsTweets as getFeedsTweetsController, likeTweet as likeTweetController, unRetweet as unRetweetController, retweet as retweetController}  from './tweet.controller'
+import {getFeedsTweets as getFeedsTweetsValidator, getTweet as getTweetValidator, updateTweet as uploadTweetValidator, deleteTweet as deleteTweetValidator, getTweets as getTweetsValidator}  from './tweet.validation'
 
-router.route('/feed').get(auth(), validate(tweetValidation.getFeedsTweets), tweetController.getFeedsTweets);
+router.route('/feed').get(auth(), validate(getFeedsTweetsValidator), getFeedsTweetsController);
 
 router
   .route('/like/:tweetId')
-  .post(auth(), validate(tweetValidation.getTweet), tweetController.likeTweet)
-  .delete(auth(), validate(tweetValidation.getTweet), tweetController.unlikeTweet);
+  .post(auth(), validate(getTweetValidator), likeTweetController)
+  .delete(auth(), validate(getTweetValidator), unlikeTweetController);
 
 router
   .route('/retweet/:tweetId')
-  .post(auth(), validate(tweetValidation.getTweet), tweetController.retweet)
-  .delete(auth(), validate(tweetValidation.getTweet), tweetController.unRetweet);
+  .post(auth(), validate(getTweetValidator), retweetController)
+  .delete(auth(), validate(getTweetValidator),unRetweetController);
 
 router
   .route('/')
-  .get(validate(tweetValidation.getTweets), tweetController.getTweets)
-  .post(auth(), validate(tweetValidation.createTweet), tweetController.createTweet);
+  .get(validate(getTweetsValidator), getTweetsController)
+  .post(auth(), validate(getTweetValidator), createTweetController);
 
 router
   .route('/:tweetId')
-  .get(validate(tweetValidation.getTweet), tweetController.getTweet)
-  .patch(auth(), validate(tweetValidation.updateTweet), tweetController.updateTweet)
-  .delete(auth(), validate(tweetValidation.deleteTweet), tweetController.deleteTweet);
+  .get(validate(getTweetValidator), getTweetController)
+  .patch(auth(), validate(getTweetValidator), updateTweetController)
+  .delete(auth(), validate(getTweetValidator), deleteTweetController);
 
-export default = router;
+export default router;

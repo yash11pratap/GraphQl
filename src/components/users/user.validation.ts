@@ -65,8 +65,8 @@ export const updateUser = (req : Request, res : Response, next) => {
   };
 
   // Admin can also update user role
-  if (req.user.role === 'admin') {
-    schemaRules.body.role = Joi.string().valid(...roles);
+  if (res.locals.user.role === 'admin') {
+    (schemaRules.body as any).role = Joi.string().valid(...roles);
   }
 
   validate(schemaRules)(req , res , next);

@@ -39,12 +39,12 @@ export const getProfiles = async (req : Request, res : Response) => {
     throw new ErrorHandler(404, 'Tweet does not exists');
   }
 
-  options.populate = {
+  (options as any).populate = {
     path: 'user',
     select: ['name', 'username', 'avatar'],
   };
 
-  const profiles = await Profile.paginate(filters, options);
+  const profiles = await (Profile as any).paginate(filters, options);
 
   res.json(profiles);
 };
@@ -71,7 +71,7 @@ export const updateProfile = async (req : Request, res : Response) => {
 
 export const followProfile = async (req : Request, res : Response) => {
   const { userId } = req.params;
-  const { _id: authUserId } = req.user;
+  const { _id: authUserId } = res.locals.user;
 
   if (userId === authUserId.toString()) {
     throw new ErrorHandler(400, 'You cannot follow your own profile');
@@ -86,20 +86,20 @@ export const followProfile = async (req : Request, res : Response) => {
     throw new ErrorHandler(404, 'Profile does not exists');
   }
 
-  if (authUserProfile.isFollowing(userId)) {
+  if ((authUserProfile as any).isFollowing(userId)) {
     throw new ErrorHandler(400, 'You already follow that profile');
   }
 
   profileToFollow.followers.push(authUserId);
 
-  await Promise.all([authUserProfile.follow(userId), profileToFollow.save()]);
+  await Promise.all([(authUserProfile as any).follow(userId), profileToFollow.save()]);
 
   return res.json({ profile: authUserProfile });
 };
 
 export const unfollowProfile = async (req : Request, res : Response) => {
   const { userId } = req.params;
-  const { _id: authUserId } = req.user;
+  const { _id: authUserId } = res.locals.user;
 
   if (userId === authUserId.toString()) {
     throw new ErrorHandler(400, 'You cannot unfollow your own profile');
@@ -114,13 +114,13 @@ export const unfollowProfile = async (req : Request, res : Response) => {
     throw new ErrorHandler(404, 'Profile does not exists');
   }
 
-  if (!authUserProfile.isFollowing(userId)) {
+  if (!(authUserProfile as any).isFollowing(userId)) {
     throw new ErrorHandler(400, 'You do not follow that profile');
   }
 
-  profileToFollow.followers.remove(authUserId);
+   (profileToFollow as any).followers.remove(authUserId);
 
-  await Promise.all([authUserProfile.unfollow(userId), profileToFollow.save()]);
+  await Promise.all([(authUserProfile as any).unfollow(userId), profileToFollow.save()]);
 
   return res.json({ profile: authUserProfile });
 };
