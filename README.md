@@ -7,7 +7,7 @@ Pass : QWERTY12345!!
 
 # features
 
-MERN Stack Twitter Clone uploaded on AWS EC2 with backend in typescript Express with DB Hosted on Mongo DB Atlas and Frontend in React 
+MERN Stack Twitter Clone deployed on AWS EC2 with backend in typescript Express with DB Hosted on Mongo DB Atlas and Frontend in React 
 
 User can Create, Comment, Like and delete tweets.
 
